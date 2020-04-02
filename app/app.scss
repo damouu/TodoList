@@ -1,0 +1,85 @@
+@import "~@nativescript/theme/core";
+@import "~@nativescript/theme/blue";
+
+// Place any CSS rules you want to apply on both iOS and Android here.
+// This is where the vast majority of your CSS code goes.
+
+// Font icon class
+.fab {
+  font-family: "Font Awesome 5 Brands", "fa-brands-400";
+  font-weight: 400;
+}
+
+.fas {
+  font-family: "Font Awesome 5 Free", "fa-solid-900";
+  font-weight: 900;
+}
+
+.far {
+  font-family: "Font Awesome 5 Free", "fa-regular-400";
+  font-weight: 400;
+}
+
+.page {
+  align-items: center;
+  flex-direction: column;
+}
+
+.input-field {
+  margin-bottom: 17;
+}
+
+.input {
+  font-size: 18;
+  placeholder-color: #A8A8A8;
+}
+
+.input-field .input {
+  font-size: 54;
+}
+
+.btn-primary {
+  border-style: dashed;
+  border-color: yellow;
+  height: 50;
+  margin: 30 5 15 5;
+  background-color: #D51A1A;
+  border-radius: 5;
+  font-size: 20;
+  font-weight: 600;
+}
+
+.login-label {
+  horizontal-align: center;
+  color: #A8A8A8;
+  font-size: 16;
+}
+
+.sign-up-label {
+  margin-bottom: 20;
+}
+
+.label_form {
+  horizontal-align: center;
+  color: deeppink;
+  font-size: 16;
+}
+
+.sign-up-label {
+  horizontal-align: center;
+  color: aquamarine;
+  font-size: large;
+  font-size: 32;
+}
+
+.sign-up-form {
+  horizontal-align: center;
+  color: deepskyblue;
+  font-size: large;
+}
+
+.sign-in-label {
+  horizontal-align: center;
+  color: saddlebrown;
+  font-size: 32;
+}
