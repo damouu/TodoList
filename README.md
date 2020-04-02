@@ -1,4 +1,4 @@
-# Projet TacheTodo-list
+# Projet TodoList
 groupe et participant DURON Jonathan et Sehbaoui-Sadek Mouad.
 ## Installation
 ```
