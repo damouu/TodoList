@@ -31,7 +31,6 @@
                 global.axios.post(`/${this.$store.state.user.uuid}/todos/`, {content: todo.content})
                     .then(response => {
                         this.$store.commit('ajoutDansLesTodos', response.data.todo);
-                        global.updateUser(this);
                     }).catch(err => {
                     alert({
                         title: "Error",

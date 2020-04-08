@@ -35,7 +35,7 @@
         },
         methods: {
             signUp() {
-                if (this.firstname && this.lastname && this.email) {
+                if (this.firstname && this.lastname && this.email && this.gender) {
                     global.axios.post('/signup', {
                         "firstname": this.firstname,
                         "lastname": this.lastname,

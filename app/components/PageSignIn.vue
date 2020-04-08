@@ -28,46 +28,38 @@
         },
         methods: {
             seConnecter() {
-                global.axios.post('/signin', {}, {
-                    auth: {
-                        username: this.email,
-                        password: this.password
-                    }
-                }).then(response => {
-                    global.isSignedIn = true;
-                    global.axios.defaults.headers.Authorization = `Bearer ${response.data.token}`;
-                    this.$store.commit('receptionDuToken', response.data.token, response.data.expiration);
-                    this.$store.commit('InfosUtilisateur', response.data.user);
-                    this.$navigateTo(ListeTacheTodo);
-                }).catch(err => {
-                    alert({
-                        title: "probleme de connection",
-                        message: err.message,
-                        okButtonText: "ok"
+                if (this.email && this.password) {
+                    global.axios.post('/signin', {}, {
+                        auth: {
+                            username: this.email,
+                            password: this.password
+                        }
+                    }).then(response => {
+                        global.isSignedIn = true;
+                        global.axios.defaults.headers.Authorization = `Bearer ${response.data.token}`;
+                        this.$store.commit('receptionDuToken', response.data.token, response.data.expiration);
+                        this.$store.commit('InfosUtilisateur', response.data.user);
+                        this.$navigateTo(ListeTacheTodo);
+                    }).catch(err => {
+                        alert({
+                            title: "probleme de connection",
+                            message: "email ou mot de passe incorrect.",
+                            okButtonText: "ok"
+                        });
                     });
-                });
+                } else {
+                    alert({
+                        title: "erreur d'enregistrement",
+                        message: "veuillez remplir tous les champs.",
+                        okButtonText: "OK"
+                    });
+                }
             }, allerPageSignUp() {
                 this.$navigateTo(PageSignUp);
             },
 
         },
         mounted() {
-            setTimeout(() => {
-                if (!global.isOnline && this.$store.state.token) {
-                    global.isSignedIn = true;
-                    this.$navigateTo(ListeTacheTodo);
-                } else {
-                    if (this.$store.state.token) {
-                        global.axios.post('/check-token', {}, {
-                            headers: {'Authorization': `Bearer ${this.$store.state.token}`}
-                        }).then(() => {
-                            global.isSignedIn = true;
-                            global.axios.defaults.headers.Authorization = `Bearer ${this.$store.state.token}`;
-                            this.$navigateTo(ListeTacheTodo);
-                        });
-                    }
-                }
-            }, 1000);
         }
     }
 </script>

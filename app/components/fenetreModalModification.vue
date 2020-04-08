@@ -12,28 +12,25 @@
 </template>
 
 <script>
-    import TacheTodo from "../classes/TacheTodo";
-
     export default {
         props: [
             "item"
         ],
         methods: {
-            modifierTacheTodo(newTodo) {
-                if (global.isOnline && newTodo.uuid) {
-                    this.modifierTacheTodoOnline(new TacheTodo(this.NouvelleTacheNom, false));
+            modifierTacheTodo() {
+                if (global.isOnline) {
+                    this.modifierTacheTodoOnline(this.item);
                 } else {
-                    this.modifierTacheTodoOffLine(new TacheTodo(this.NouvelleTacheNom, false));
+                    this.modifierTacheTodoOffLine(this.item);
                 }
                 this.$modal.close();
             },
-            modifierTacheTodoOnline(newTodo) {
-                global.axios.patch(`/${this.$store.state.user.uuid}/todos/${newTodo.uuid}`, {
-                    content: newTodo.content,
-                    done: newTodo.done
+            modifierTacheTodoOnline(todo) {
+                global.axios.patch(`/${this.$store.state.user.uuid}/todos/${todo.uuid}`, {
+                    content: todo.content,
+                    done: todo.done
                 }).then(response => {
                     this.$store.commit('updateSate');
-                    global.updateUser(this);
                 }).catch(err => {
                     alert({
                         title: "Error",

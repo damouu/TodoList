@@ -26,7 +26,6 @@
                 global.axios.delete(`/${this.$store.state.user.uuid}/todos/${todo.uuid}`)
                     .then(response => {
                         this.$store.commit('suppressionDansLesTodos', todo);
-                        global.updateUser(this);
                     }).catch(err => {
                     alert({
                         title: "Error",

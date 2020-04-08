@@ -24,19 +24,6 @@ global.bus = new Vue({});
 
 global.connectivity = require('tns-core-modules/connectivity');
 
-global.updateUser = context => {
-    global.axios.get(`/${context.$store.state.user.uuid}`)
-        .then(response => {
-            context.$store.commit('saveUser', response.data);
-        }).catch(err => {
-        alert({
-            title: "Error",
-            message: err.message,
-            okButtonText: "OK"
-        });
-    });
-};
-
 new Vue({
     store,
     template: `
