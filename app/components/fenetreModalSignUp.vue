@@ -1,8 +1,9 @@
 <template>
     <Page>
         <StackLayout>
-            <Label :text="'Your password is: '+user.password+', make sure to remember it!'"></Label>
-            <Button text="Go to Sign In" @tap="passwordNoted"/>
+            <Label class="fenetre-modal-SignUp"
+                   :text="'Votre mot de passe: '+ ' '+user.password"></Label>
+            <Button text="Je me connect" @tap="passwordNoted"/>
         </StackLayout>
     </Page>
 </template>
@@ -23,5 +24,14 @@
 </script>
 
 <style scoped>
+
+    .fenetre-modal-SignUp {
+        height: 300px;
+        font-size: 20em;
+        text-align: center;
+        width: 1200px;
+        font-size: 20em;
+        background-color: darkslateblue;
+    }
 
 </style>
