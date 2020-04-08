@@ -27,10 +27,8 @@
 
     .fenetre-modal-SignUp {
         height: 300px;
-        font-size: 20em;
-        text-align: center;
-        width: 1200px;
-        font-size: 20em;
+        font-size: 15em;
+        width: 2000px;
         background-color: darkslateblue;
     }
 
