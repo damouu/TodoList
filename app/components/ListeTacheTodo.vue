@@ -16,6 +16,7 @@
     import fenetreModalAjout from "./fenetreModalAjout";
     import Item from './Item';
     import fenetreModalFiltrer from "./fenetreModalFiltrer";
+    import TacheTodo from "../classes/TacheTodo";
 
     export default {
         components: {
@@ -157,10 +158,21 @@
             global.bus.$on('syncDone', () => global.updateUser(this));
             global.bus.$on('connection restored while signed in', () => this.syncTodos());
         },
-        async mounted() {
+        mounted() {
             if (global.isOnline) {
-                await global.updateUser(this);
-                this.syncTodos();
+                global.axios.get(`/${this.$store.state.user.uuid}/todos`)
+                    .then(response => {
+                        let todos = response.data.todos;
+                        todos.forEach(todo => {
+                            this.$store.commit('ajoutDansLesTodos', (new TacheTodo(todo.content, todo.done)));
+                        });
+                    }).catch(err => {
+                    alert({
+                        title: "Error",
+                        message: err.message,
+                        okButtonText: "OK"
+                    });
+                });
             }
         },
         watch: {
