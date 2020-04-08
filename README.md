@@ -14,4 +14,4 @@ tns run <platform>
 nous sommes arrivees jusqu'au TD4.
 
 ## Difficultés rencontrées
-nous n'arrivons pas a communiquer avec l'API. pour la partie du TD3 retirer les commentaires dans le components Home  ``` <!-- <ListeTacheTodo></ListeTacheTodo> --> ``` .
+nous avons eu besoin d'aide car nous avons eu beaucoup de mal a mettre en place l'environement NativeScript et VueJs ainsi que certaines fonctionnalités de l'application.
