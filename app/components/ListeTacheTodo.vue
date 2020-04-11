@@ -3,7 +3,7 @@
         <ActionBar title="les taches TodoList"></ActionBar>
         <GridLayout>
             <StackLayout orientation="vertical">
-                <Label class="label-information" text="voici vos taches todo:"/>
+                <Label class="label-information" text="voici vos taches todo"/>
                 <Item v-for="todo in listeTacheTodoFiltre" :item="todo"></Item>
             </StackLayout>
             <Button class="button-filtre-TacheTodo" text="filtrer" @tap="AllerfenetreModalFiltre"/>
@@ -164,7 +164,7 @@
                     .then(response => {
                         let todos = response.data.todos;
                         todos.forEach(todo => {
-                            this.$store.commit('ajoutDansLesTodos', (new TacheTodo(todo.content, todo.done)));
+                            this.$store.commit('ajoutDansLesTodos', (new TacheTodo(todo.content, todo.done, todo.uuid)));
                         });
                     }).catch(err => {
                     alert({
