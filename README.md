@@ -15,3 +15,4 @@ nous sommes arrivees jusqu'au TD4.
 
 ## Difficultés rencontrées
 nous avons eu besoin d'aide car nous avons eu beaucoup de mal a mettre en place l'environement NativeScript et VueJs ainsi que certaines fonctionnalités de l'application.
+depuis un téléphone, nous n'arrivons à communiquer avec l'API qu'au travers d'une connexion WI-FI.
