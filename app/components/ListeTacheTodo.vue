@@ -8,6 +8,7 @@
             </StackLayout>
             <Button class="button-filtre-TacheTodo" text="filtrer" @tap="AllerfenetreModalFiltre"/>
             <Button class="button-nouvelle-TacheTodo" text="Creer" @tap="AllerfenetreModalAjout"/>
+            <Button class="button-nouveau-Password" text="Reset Password" @tap="AllerfenetreModalResetPassword"/>
         </GridLayout>
     </Page>
 </template>
@@ -17,11 +18,13 @@
     import Item from './Item';
     import fenetreModalFiltrer from "./fenetreModalFiltrer";
     import TacheTodo from "../classes/TacheTodo";
+    import fenetreModalResetPassword from "./fenetreModalResetPassword"
 
     export default {
         components: {
             fenetreModalFiltrer,
             fenetreModalAjout,
+            fenetreModalResetPassword,
             Item
         },
         data() {
@@ -40,6 +43,9 @@
             },
             AllerfenetreModalAjout() {
                 this.$showModal(fenetreModalAjout);
+            },
+            AllerfenetreModalResetPassword() {
+                this.$showModal(fenetreModalResetPassword);
             },
             syncTodos() {
                 let TachesTodos = this.$store.state.TachesTodos;
@@ -134,7 +140,6 @@
             global.bus.$on('ajouterNouvelleTacheTodo', todo => this.ajouterNouvelleTacheTodo(todo));
             global.bus.$on('suppressionTacheTodo', todo => this.suppressionTacheTodo(todo));
             global.bus.$on('modifierTacheTodo', newTodo => this.modifierTacheTodo(newTodo));
-            global.bus.$on('syncDone', () => global.updateUser(this));
             global.bus.$on('connection restored while signed in', () => this.syncTodos());
         },
         mounted() {
@@ -182,6 +187,14 @@
         width: 85;
         background-color: darkslateblue;
         horizontal-align: right;
+        vertical-align: bottom;
+    }
+
+    .button-nouveau-Password {
+        height: 85;
+        width: 85;
+        background-color: greenyellow;
+        horizontal-align: center;
         vertical-align: bottom;
     }
 
