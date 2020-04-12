@@ -3,7 +3,6 @@
         <StackLayout>
             <Label class="fenetre-modal-SignUp"
                    :text="'Votre mot de passe: '+ ' '+user.password"></Label>
-            <Button text="Je me connect" @tap="passwordNoted"/>
         </StackLayout>
     </Page>
 </template>
@@ -14,12 +13,7 @@
         props: [
             "user"
         ],
-        methods: {
-            passwordNoted() {
-                global.bus.$emit('passwordNoted');
-                this.$modal.close();
-            }
-        }
+        methods: {}
     }
 </script>
 

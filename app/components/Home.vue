@@ -1,65 +1,50 @@
 <template>
     <PageSignIn></PageSignIn>
-    <!-- <ListeTacheTodo></ListeTacheTodo> -->
 </template>
 
 <script>
     import PageSignIn from "./PageSignIn";
-    import ListeTacheTodo from "./ListeTacheTodo";
 
     export default {
         components: {
             PageSignIn,
-            ListeTacheTodo
         },
         methods: {
-            getConnectionType(connectionType) {
+            TypeConnectionDetecte(connectionType) {
                 switch (connectionType) {
-                    case global.connectivity.connectionType.none:
-                        global.bus.$emit('no connection');
+                    case global.connectivity.connectionType.mobile:
+                        global.isOnline = true;
+                        alert({
+                            title: "Connection",
+                            message: "Connection reseau mobile détecté",
+                            okButtonText: "OK"
+                        });
                         break;
                     case global.connectivity.connectionType.wifi:
-                        global.bus.$emit('wifi connection');
+                        global.isOnline = true;
+                        alert({
+                            title: "Connection",
+                            message: "Connection WIFI détecté",
+                            okButtonText: "OK"
+                        });
                         break;
-                    case global.connectivity.connectionType.mobile:
-                        global.bus.$emit('mobile connection');
+                    case global.connectivity.connectionType.none:
+                        global.isOnline = false;
+                        alert({
+                            title: "Connection",
+                            message: "Aucune connection détecté",
+                            okButtonText: "OK"
+                        });
                         break;
                     default:
                         break;
                 }
             },
 
-            onConnectionTypeChange(isOnline, message) {
-                global.isOnline = isOnline;
-                console.log("isOnline: " + global.isOnline);
-                alert({
-                    title: "Information",
-                    message: message,
-                    okButtonText: "OK"
-                });
-            }
         },
         created() {
             global.connectivity.startMonitoring(connectionType => {
-                this.getConnectionType(connectionType);
-            });
-
-            global.bus.$on('no connection', () => {
-                this.onConnectionTypeChange(false, "No connection detected");
-            });
-
-            global.bus.$on('wifi connection', () => {
-                this.onConnectionTypeChange(true, "WiFi connection detected");
-                if (global.isSignedIn) {
-                    global.bus.$emit('connection restored while signed in');
-                }
-            });
-
-            global.bus.$on('mobile connection', () => {
-                this.onConnectionTypeChange(true, "Mobile data connection detected");
-                if (global.isSignedIn) {
-                    global.bus.$emit('connection restored while signed in');
-                }
+                this.TypeConnectionDetecte(connectionType);
             });
         },
     };
@@ -68,7 +53,6 @@
 <style scoped lang="scss">
     @import '~@nativescript/theme/scss/variables/blue';
 
-    // Custom styles
     .fas {
         @include colorize($color: accent);
     }
