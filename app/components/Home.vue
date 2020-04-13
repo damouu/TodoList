@@ -19,6 +19,9 @@
                             message: "Connection reseau mobile détecté",
                             okButtonText: "OK"
                         });
+                        if (global.isSignedIn) {
+                            global.bus.$emit('connection restored while signed in');
+                        }
                         break;
                     case global.connectivity.connectionType.wifi:
                         global.isOnline = true;
@@ -27,6 +30,9 @@
                             message: "Connection WIFI détecté",
                             okButtonText: "OK"
                         });
+                        if (global.isSignedIn) {
+                            global.bus.$emit('connection restored while signed in');
+                        }
                         break;
                     case global.connectivity.connectionType.none:
                         global.isOnline = false;

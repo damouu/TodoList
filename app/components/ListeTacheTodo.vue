@@ -85,11 +85,6 @@
                                         }
                                     }
                                 }).catch(err => {
-                                alert({
-                                    title: "Error",
-                                    message: err.message,
-                                    okButtonText: "OK"
-                                });
                             });
                         }
 
@@ -105,11 +100,7 @@
                                     }
                                 }
                             }).catch(err => {
-                                alert({
-                                    title: "Error",
-                                    message: err.message,
-                                    okButtonText: "OK"
-                                });
+
                             });
                         }
                     });
@@ -125,11 +116,6 @@
                                         }
                                     }
                                 }).catch(err => {
-                                alert({
-                                    title: "Error",
-                                    message: err.message,
-                                    okButtonText: "OK"
-                                });
                             });
                         }
                     });
