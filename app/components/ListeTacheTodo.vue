@@ -58,6 +58,8 @@
                     }
                 });
                 if (TacheTodoNouvelle === 0) {
+                    global.bus.$emit('syncDone');
+                } else {
                     TachesTodos.forEach(TacheTodoLocale => {
                         if (!TacheTodoLocale.uuid) {
                             global.axios.post(`/${this.$store.state.user.uuid}/todos/`, {content: TacheTodoLocale.content})
@@ -71,8 +73,6 @@
                                 })
                         }
                     });
-                    global.bus.$emit('syncDone');
-                } else {
                 }
                 alert("synchronisation effectuée.")
             },
