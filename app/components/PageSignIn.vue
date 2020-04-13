@@ -22,8 +22,8 @@
     export default {
         data() {
             return {
-                email: "test@test1.com",
-                password: "bQ8LWT2Dp7"
+                email: "",
+                password: ""
             }
         },
         methods: {
