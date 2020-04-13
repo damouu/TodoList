@@ -2,18 +2,28 @@
     <Page>
         <StackLayout>
             <Label class="fenetre-modal-SignUp"
-                   :text="'Votre mot de passe: '+ ' '+user.password"></Label>
+                   :text="'Votre compte a bien été crée.'"></Label>
+            <Label class="fenetre-modal-SignUp"
+                   :text="'Votre mot de passe est: '+ ' '+user.password"></Label>
+            <Button text="se connecter" @tap="allerPageSignIn" class="btn btn-primary"/>
         </StackLayout>
     </Page>
 </template>
 
 <script>
+    import PageSignIn from "./PageSignIn";
+
     export default {
         name: "SignUpModal",
         props: [
             "user"
         ],
-        methods: {}
+        methods: {
+            allerPageSignIn() {
+                this.$navigateTo(PageSignIn);
+                this.$modal.close();
+            },
+        }
     }
 </script>
 

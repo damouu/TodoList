@@ -47,84 +47,41 @@
             AllerfenetreModalResetPassword() {
                 this.$showModal(fenetreModalResetPassword);
             },
-            syncTodos() {
+            SynchronisationTacheTodo() {
                 let TachesTodos = this.$store.state.TachesTodos;
-                let distantTodos = this.$store.state.user.todos;
-                let nbTodosToAdd = 0;
-                let nbTodosAdded = 0;
-                let nbTodosToDelete = 0;
-                let nbTodosDeleted = 0;
-                let nbTodosToModify = 0;
-                let nbTodosModified = 0;
+                let TacheTodoACreer = 0;
+                let TacheTodoNouvelle = 0;
 
-                distantTodos.forEach(distantTodo => {
-                    if (TachesTodos.findIndex(localTodo => localTodo.uuid === distantTodo.uuid) === -1) {
-                        nbTodosToDelete++;
+                TachesTodos.forEach(TacheTodoLocale => {
+                    if (!TacheTodoLocale.uuid) {
+                        TacheTodoNouvelle++
                     }
                 });
-                TachesTodos.forEach(localTodo => {
-                    if (!localTodo.uuid) {
-                        nbTodosToAdd++
-                    }
-
-                    if (distantTodos.findIndex(distantTodo => (distantTodo.uuid === localTodo.uuid) && (distantTodo.content !== localTodo.content || distantTodo.done !== localTodo.done)) !== -1) {
-                        nbTodosToModify++
-                    }
-                });
-                if (nbTodosToAdd === 0 && nbTodosToDelete === 0 && nbTodosToModify === 0) {
-                    global.bus.$emit('syncDone');
-                } else {
-                    TachesTodos.forEach(localTodo => {
-                        if (!localTodo.uuid) {
-                            global.axios.post(`/${this.$store.state.user.uuid}/todos/`, {content: localTodo.content})
+                if (TacheTodoNouvelle === 0) {
+                    TachesTodos.forEach(TacheTodoLocale => {
+                        if (!TacheTodoLocale.uuid) {
+                            global.axios.post(`/${this.$store.state.user.uuid}/todos/`, {content: TacheTodoLocale.content})
                                 .then(response => {
-                                    this.$store.commit('suppressionDansLesTodos', localTodo);
+                                    this.$store.commit('suppressionDansLesTodos', TacheTodoLocale);
                                     this.$store.commit('ajoutDansLesTodos', (new TacheTodo(response.data.todo.content, response.data.todo.done, response.data.todo.uuid)));
-                                    nbTodosAdded++;
-                                    if (nbTodosAdded === nbTodosToAdd) {
-                                        if (nbTodosDeleted === nbTodosToDelete && nbTodosModified === nbTodosToModify) {
-                                            global.bus.$emit('syncDone');
-                                        }
-                                    }
-                                })
-                        }
-
-                        if (distantTodos.findIndex(distantTodo => (distantTodo.uuid === localTodo.uuid) && (distantTodo.content !== localTodo.content || distantTodo.done !== localTodo.done)) !== -1) {
-                            global.axios.patch(`/${this.$store.state.user.uuid}/todos/${localTodo.uuid}`, {
-                                content: localTodo.content,
-                                done: localTodo.done
-                            }).then(response => {
-                                nbTodosModified++;
-                                if (nbTodosModified === nbTodosToModify) {
-                                    if (nbTodosAdded === nbTodosToAdd && nbTodosDeleted === nbTodosToDelete) {
+                                    TacheTodoACreer++;
+                                    if (TacheTodoACreer === TacheTodoNouvelle) {
                                         global.bus.$emit('syncDone');
                                     }
-                                }
-                            })
-                        }
-                    });
-                    distantTodos.forEach(distantTodo => {
-                        if (TachesTodos.findIndex(localTodo => localTodo.uuid & distantTodo.uuid & localTodo.uuid === distantTodo.uuid) === -1) {
-                            global.axios.delete(`/${this.$store.state.user.uuid}/todos/${distantTodo.uuid}`)
-                                .then(response => {
-                                    nbTodosDeleted++;
-                                    if (nbTodosDeleted === nbTodosToDelete) {
-                                        if (nbTodosAdded === nbTodosToAdd && nbTodosModified === nbTodosToModify) {
-                                            global.bus.$emit('syncDone');
-                                        }
-                                    }
                                 })
                         }
                     });
-                    alert("synchronisation effectue");
+                    global.bus.$emit('syncDone');
+                } else {
                 }
+                alert("synchronisation effectuée.")
             },
         },
         created() {
             global.bus.$on('ajouterNouvelleTacheTodo', todo => this.ajouterNouvelleTacheTodo(todo));
             global.bus.$on('suppressionTacheTodo', todo => this.suppressionTacheTodo(todo));
             global.bus.$on('modifierTacheTodo', newTodo => this.modifierTacheTodo(newTodo));
-            global.bus.$on('connection restored while signed in', () => this.syncTodos());
+            global.bus.$on('connection restored while signed in', () => this.SynchronisationTacheTodo());
         },
         mounted() {
             if (global.isOnline) {
