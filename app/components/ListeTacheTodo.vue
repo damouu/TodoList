@@ -78,14 +78,15 @@
                         if (!localTodo.uuid) {
                             global.axios.post(`/${this.$store.state.user.uuid}/todos/`, {content: localTodo.content})
                                 .then(response => {
+                                    this.$store.commit('suppressionDansLesTodos', localTodo);
+                                    this.$store.commit('ajoutDansLesTodos', (new TacheTodo(response.data.todo.content, response.data.todo.done, response.data.todo.uuid)));
                                     nbTodosAdded++;
                                     if (nbTodosAdded === nbTodosToAdd) {
                                         if (nbTodosDeleted === nbTodosToDelete && nbTodosModified === nbTodosToModify) {
                                             global.bus.$emit('syncDone');
                                         }
                                     }
-                                }).catch(err => {
-                            });
+                                })
                         }
 
                         if (distantTodos.findIndex(distantTodo => (distantTodo.uuid === localTodo.uuid) && (distantTodo.content !== localTodo.content || distantTodo.done !== localTodo.done)) !== -1) {
@@ -99,12 +100,9 @@
                                         global.bus.$emit('syncDone');
                                     }
                                 }
-                            }).catch(err => {
-
-                            });
+                            })
                         }
                     });
-
                     distantTodos.forEach(distantTodo => {
                         if (TachesTodos.findIndex(localTodo => localTodo.uuid & distantTodo.uuid & localTodo.uuid === distantTodo.uuid) === -1) {
                             global.axios.delete(`/${this.$store.state.user.uuid}/todos/${distantTodo.uuid}`)
@@ -115,10 +113,10 @@
                                             global.bus.$emit('syncDone');
                                         }
                                     }
-                                }).catch(err => {
-                            });
+                                })
                         }
                     });
+                    alert("synchronisation effectue");
                 }
             },
         },
