@@ -14,7 +14,7 @@
   "dependencies": {
     "@nativescript/theme": "~2.2.1",
     "@nstudio/nativescript-floatingactionbutton": "^2.0.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "base-64": "^0.1.0",
     "bulma": "^0.8.1",
     "nativescript-connectivity-manager-plugin": "0.0.3",
